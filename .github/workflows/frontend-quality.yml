@@ -1,0 +1,27 @@
+name: Frontend Quality
+
+on:
+  pull_request:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-quality.yml"
+  push:
+    branches: ["main", "master"]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-quality.yml"
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run encoding checks
+        working-directory: frontend
+        run: node scripts/check-encoding.mjs
+      - name: Run static build checks
+        working-directory: frontend
+        run: node scripts/build-check.mjs

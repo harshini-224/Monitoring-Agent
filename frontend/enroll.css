@@ -1,0 +1,7 @@
+.checklist {
+  padding-left: 18px;
+  color: var(--muted);
+  display: grid;
+  gap: 6px;
+}
+

@@ -1,0 +1,57 @@
+.table-wrap {
+  overflow-x: auto;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alert-card {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: var(--surface-strong);
+}
+
+.alert-card strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.schedule-list,
+.log-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.schedule-item {
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+}
+
+.log-entry {
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.log-entry span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.empty {
+  color: var(--muted);
+  font-style: italic;
+}
+

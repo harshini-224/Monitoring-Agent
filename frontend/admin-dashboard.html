@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CarePulse | Admin Dashboard</title>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+      tailwind.config = {
+        theme: {
+          borderRadius: {
+            none: "0",
+            sm: "6px",
+            DEFAULT: "8px",
+            md: "8px",
+            lg: "8px",
+            xl: "8px",
+            "2xl": "8px",
+            "3xl": "10px",
+           full: "9999px"
+          },
+          boxShadow: {
+            sm: "0 1px 2px rgba(16, 24, 40, 0.06)",
+            DEFAULT: "0 1px 3px rgba(16, 24, 40, 0.08)",
+            md: "0 2px 6px rgba(16, 24, 40, 0.08)",
+            none: "none"
+          },
+          extend: {
+            colors: {
+              brand: "#4A7BD0",
+              info: "#5C86D6",
+              success: "#4F8F6B",
+              warning: "#C98A3A",
+              critical: "#C4625A",
+              ink: "#1F2A37",
+              muted: "#6B7280",
+              panel: "#F3F6FA",
+              border: "#D7DEE7",
+              card: "#FFFFFF"
+            },
+            fontFamily: {
+              sans: ["IBM Plex Sans", "ui-sans-serif", "system-ui"]
+            }
+          }
+        }
+      }
+</script>
+<link rel="stylesheet" href="app.css" />
+<script src="config.js"></script>
+<script src="api-client.js"></script>
+<script src="state.js"></script>
+<script src="auth.js"></script>
+<script src="sidebar.js"></script>
+    <script src="admin-dashboard.js" defer></script>
+  </head>
+  <body class="bg-panel text-ink h-screen overflow-hidden">
+    <div class="flex h-full overflow-hidden">
+      <aside id="appSidebar" class="w-60 bg-white border-r border-border min-h-screen px-4 py-6"></aside>
+
+      <main class="flex-1 flex flex-col h-full overflow-hidden">
+        <header class="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-b border-border">
+  <div class="flex items-center gap-3 text-sm">
+    <span class="badge badge-live badge-dot">Live</span>
+    <span id="systemHealth" class="text-muted">System Healthy</span>
+  </div>
+  <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
+      <span id="userName" class="text-sm">Admin</span>
+      <span id="userRole" class="text-xs px-2 py-1 rounded-md bg-panel">ADMIN</span>
+      <button id="logoutBtn" class="text-sm text-muted hover:text-ink">Logout</button>
+    </div>
+  </div>
+</header>
+
+        <div class="px-6 py-6 flex-1 overflow-auto">
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-xl border border-border p-4">
+              <div class="text-xs uppercase tracking-widest text-muted mb-1">Active Patients</div>
+              <div class="text-3xl font-semibold" id="statActivePatients">--</div>
+            </div>
+            <div class="bg-white rounded-xl border border-border p-4">
+              <div class="text-xs uppercase tracking-widest text-muted mb-1">Calls Today</div>
+              <div class="text-3xl font-semibold" id="statCallsToday">--</div>
+            </div>
+            <div class="bg-white rounded-xl border border-border p-4">
+              <div class="text-xs uppercase tracking-widest text-muted mb-1">High Alerts</div>
+              <div class="text-3xl font-semibold text-critical" id="statHighAlerts">--</div>
+            </div>
+            <div class="bg-white rounded-xl border border-border p-4">
+              <div class="text-xs uppercase tracking-widest text-muted mb-1">Active Users</div>
+              <div class="text-3xl font-semibold" id="statActiveUsers">--</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <!-- Pending Registration Requests -->
+            <section class="bg-white rounded-2xl border border-border p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold">Pending Registrations</h2>
+                <span id="pendingCount" class="text-sm text-muted">0 pending</span>
+              </div>
+              <div id="pendingRequests" class="space-y-3 max-h-96 overflow-y-auto">
+                <!-- Dynamically populated -->
+              </div>
+            </section>
+
+            <!-- Create User Form -->
+            <section class="bg-white rounded-2xl border border-border p-6">
+              <h2 class="text-lg font-semibold mb-4">Create User Account</h2>
+              <form id="createUserForm" class="space-y-3">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Name</label>
+                  <input type="text" id="userName" required class="w-full px-3 py-2 border border-border rounded-lg">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Email</label>
+                  <input type="email" id="userEmail" required class="w-full px-3 py-2 border border-border rounded-lg">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Password</label>
+                  <input type="password" id="userPassword" required minlength="8" class="w-full px-3 py-2 border border-border rounded-lg">
+                  <div class="text-xs text-muted mt-1">Min 8 characters</div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Role</label>
+                  <select id="userRole" required class="w-full px-3 py-2 border border-border rounded-lg">
+                    <option value="">Select role</option>
+                    <option value="staff">Staff</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Department (Optional)</label>
+                  <input type="text" id="userDepartment" class="w-full px-3 py-2 border border-border rounded-lg">
+                </div>
+                <button type="submit" class="w-full bg-brand text-white px-4 py-2 rounded-lg hover:opacity-90">
+                  Create User
+                </button>
+              </form>
+            </section>
+          </div>
+
+          <!-- System Monitoring -->
+          <section class="bg-white rounded-2xl border border-border p-6 mt-6">
+            <h2 class="text-lg font-semibold mb-4">System Monitoring</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <div class="text-sm font-medium mb-2">Users by Role</div>
+                <div class="space-y-1 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-muted">Admins:</span>
+                    <span id="countAdmin">--</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-muted">Doctors:</span>
+                    <span id="countDoctors">--</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-muted">Nurses:</span>
+                    <span id="countNurses">--</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-muted">Staff:</span>
+                    <span id="countStaff">--</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="text-sm font-medium mb-2">Today's Calls</div>
+                <div class="space-y-1 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-muted">Total:</span>
+                    <span id="callsTotal">--</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-muted">Answered:</span>
+                    <span id="callsAnswered" class="text-success">--</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-muted">Unanswered:</span>
+                    <span id="callsUnanswered" class="text-warning">--</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="text-sm font-medium mb-2">Risk Distribution</div>
+                <div class="space-y-1 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-muted">High Risk:</span>
+                    <span id="riskHigh" class="text-critical">--</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-muted">Medium Risk:</span>
+                    <span id="riskMedium" class="text-warning">--</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-muted">Low Risk:</span>
+                    <span id="riskLow" class="text-success">--</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

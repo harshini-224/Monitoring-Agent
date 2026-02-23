@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CarePulse | Enroll Patient</title>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+      tailwind.config = {
+        theme: {
+          borderRadius: {
+            none: "0",
+            sm: "6px",
+            DEFAULT: "8px",
+            md: "8px",
+            lg: "8px",
+            xl: "8px",
+            "2xl": "8px",
+            "3xl": "10px",
+            full: "9999px"
+          },
+          boxShadow: {
+            sm: "0 1px 2px rgba(16, 24, 40, 0.06)",
+            DEFAULT: "0 1px 3px rgba(16, 24, 40, 0.08)",
+            md: "0 2px 6px rgba(16, 24, 40, 0.08)",
+            none: "none"
+          },
+          extend: {
+            colors: {
+              brand: "#4A7BD0",
+              info: "#5C86D6",
+              success: "#4F8F6B",
+              warning: "#C98A3A",
+              critical: "#C4625A",
+              ink: "#1F2A37",
+              muted: "#6B7280",
+              panel: "#F3F6FA",
+              border: "#D7DEE7",
+              card: "#FFFFFF"
+            },
+            fontFamily: {
+              sans: ["IBM Plex Sans", "ui-sans-serif", "system-ui"]
+            }
+          }
+        }
+      }
+</script>
+<link rel="stylesheet" href="app.css" />
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="sidebar.js"></script>
+
+    <script src="enroll.js" defer></script>
+  </head>
+  <body class="bg-panel text-ink">
+    <div class="flex">
+      <aside id="appSidebar" class="w-60 bg-white border-r border-border min-h-screen px-4 py-6"></aside>
+
+      <main class="flex-1 min-h-screen">
+        <header class="flex items-center justify-between px-6 py-4 bg-white border-b border-border">
+  <div class="text-sm text-muted">Live ? Updated just now</div>
+  <div class="flex items-center gap-4">
+    <div class="relative">
+      <button id="notifBtn" class="text-sm text-muted">Notifications (<span id="notifCount">0</span>)</button>
+      <div id="notifPanel" class="hidden absolute right-0 mt-2 w-72 bg-white border border-border rounded-xl p-3 shadow-sm"></div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span id="userName" class="text-sm">Clinician</span>
+      <span id="userRole" class="text-xs px-2 py-1 rounded-md bg-panel">ROLE</span>
+      <button id="logoutBtn" class="text-sm text-muted hover:text-ink">Logout</button>
+    </div>
+  </div>
+</header>
+
+        <div class="px-6 py-6">
+          <div class="bg-white rounded-2xl border border-border p-6 max-w-2xl">
+            <div class="text-xs uppercase tracking-widest text-muted">Patient Enrollment</div>
+            <form id="enrollForm" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Patient name</span>
+                <input id="name" class="border border-border rounded-xl px-4 py-2 w-full" required />
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Phone number</span>
+                <input id="phone" class="border border-border rounded-xl px-4 py-2 w-full" required />
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Age</span>
+                <input id="age" type="number" min="0" max="120" class="border border-border rounded-xl px-4 py-2 w-full" />
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Gender</span>
+                <select id="gender" class="border border-border rounded-xl px-4 py-2 w-full">
+                  <option value="">Select</option>
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Disease track</span>
+                <select id="track" class="border border-border rounded-xl px-4 py-2 w-full" required>
+                  <option value="">Select track</option>
+                  <option value="cardiovascular">Cardiovascular</option>
+                  <option value="pulmonary">Pulmonary</option>
+                  <option value="general">General</option>
+                </select>
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Protocol</span>
+                <select id="protocol" class="border border-border rounded-xl px-4 py-2 w-full">
+                  <option value="POST_MI">POST_MI</option>
+                  <option value="HEART_FAILURE">HEART_FAILURE</option>
+                  <option value="HYPERTENSION">HYPERTENSION</option>
+                  <option value="ARRHYTHMIA">ARRHYTHMIA</option>
+                  <option value="COPD">COPD</option>
+                  <option value="ASTHMA">ASTHMA</option>
+                  <option value="PNEUMONIA">PNEUMONIA</option>
+                  <option value="PE">PE</option>
+                  <option value="ILD_POST_COVID">ILD_POST_COVID</option>
+                  <option value="GENERAL_MONITORING">GENERAL_MONITORING</option>
+                </select>
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Timezone (IST)</span>
+                <input id="timezone" class="border border-border rounded-xl px-4 py-2 w-full" value="Asia/Kolkata" />
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Schedule time to call (IST)</span>
+                <input id="callTime" type="time" class="border border-border rounded-xl px-4 py-2 w-full" value="10:00" />
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Days to monitor</span>
+                <input id="days" type="number" class="border border-border rounded-xl px-4 py-2 w-full" value="30" />
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Assigned doctor</span>
+                <select id="assignedDoctor" class="border border-border rounded-xl px-4 py-2 w-full" required>
+                  <option value="">Select doctor</option>
+                </select>
+              </label>
+              <label class="text-sm">
+                <span class="block text-muted mb-1">Assigned nurse</span>
+                <select id="assignedNurse" class="border border-border rounded-xl px-4 py-2 w-full" required>
+                  <option value="">Select nurse</option>
+                </select>
+              </label>
+              <label class="text-sm md:col-span-2">
+                <span class="block text-muted mb-1">Diagnosis</span>
+                <textarea id="diagnosis" rows="3" class="border border-border rounded-xl px-4 py-2 w-full"></textarea>
+              </label>
+              <label class="text-sm md:col-span-2">
+                <span class="block text-muted mb-1">Medication</span>
+                <textarea id="medications" rows="3" class="border border-border rounded-xl px-4 py-2 w-full"></textarea>
+              </label>
+              <button type="submit" class="md:col-span-2 bg-brand text-white rounded-xl py-2">Enroll Patient</button>
+              <div id="enrollStatus" class="md:col-span-2 text-sm text-muted"></div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+
+
+

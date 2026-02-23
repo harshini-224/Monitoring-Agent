@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Detail - CarePulse Nurse</title>
+    <link rel="stylesheet" href="../assets/css/carepulse.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-title">
+                <a href="dashboard.html" style="color: var(--text-tertiary); margin-right: 1rem;">← Back</a>
+                <span class="logo">⚕️</span>
+                <span id="patient-name">Patient Detail</span>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle">☀️</button>
+                <button class="btn btn-secondary btn-sm" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Date Navigation -->
+            <div id="date-nav" class="sticky-subnav"></div>
+
+            <div class="grid grid-2">
+                <!-- Left Column: Enrollment & History -->
+                <div
+                    style="position: sticky; top: 10rem; align-self: start; max-height: calc(100vh - 12rem); overflow-y: auto; padding-right: 0.5rem; scroll-behavior: smooth;">
+                    <!-- Enrollment Data -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">Patient Information</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="enrollment-data">
+                                <div class="flex-center">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monitoring History -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Monitoring Summary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="monitoring-summary"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Daily Data -->
+                <div>
+                    <!-- IVR Responses -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">IVR Responses</h4>
+                            <p class="card-subtitle">Review and correct unclear responses</p>
+                        </div>
+                        <div class="card-body">
+                            <div id="ivr-responses">
+                                <div class="flex-center">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doctor Notes -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">Doctor Notes</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="doctor-notes"></div>
+                        </div>
+                    </div>
+
+                    <!-- Medications Given -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Medications</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="medications"></div>
+                            <div class="flex gap-2">
+                                <button class="btn btn-primary btn-sm mt-2" onclick="addMedication()">
+                                    💊 Add Medication Reminder
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Medication Reminder Modal -->
+    <div id="medication-modal" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Schedule Medication Reminders</h3>
+                <button class="modal-close" onclick="hideModal('medication-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="medication-form">
+                    <div class="form-group">
+                        <label class="form-label required">Medication Name</label>
+                        <input type="text" id="med-name" class="form-input" placeholder="e.g. Aspirin" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Dose</label>
+                        <input type="text" id="med-dose" class="form-input" placeholder="e.g. 75mg" />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label class="form-label required">Reminder Times</label>
+                        <div class="flex gap-3" style="margin-top: 0.5rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="med-time" value="morning"> Morning (9AM)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="med-time" value="afternoon"> Afternoon (2PM)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="med-time" value="evening"> Evening (8PM)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Duration (Days)</label>
+                        <input type="number" id="med-days" class="form-input" value="7" min="1" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideModal('medication-modal')">Cancel</button>
+                <div class="flex gap-2">
+                    <button class="btn btn-primary" onclick="handleSendBulkReminders()">Schedule Reminders</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Correction Modal -->
+    <div id="correction-modal" class="modal-overlay" style="display: none;">
+        <div class="modal" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Correct IVR Response</h3>
+                <button class="modal-close" onclick="hideModal('correction-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Original Response</label>
+                    <div id="original-response"
+                        style="padding: 0.75rem; background: var(--bg-secondary); border-radius: 8px; color: var(--text-muted);">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">Corrected Text</label>
+                    <input type="text" id="corrected-text" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">Reason for Correction</label>
+                    <textarea id="correction-reason" class="form-textarea" rows="2" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="hideModal('correction-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitCorrection()">Submit Correction</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="patient-detail.js"></script>
+</body>
+
+</html>

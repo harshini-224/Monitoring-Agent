@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Dashboard - CarePulse</title>
+    <link rel="stylesheet" href="../assets/css/carepulse.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content"
+                style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="logo">⚕️</span>
+                    <span style="font-weight: 600; font-size: 1.25rem;">CarePulse Nurse</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span id="user-name" style="color: var(--text-secondary);"></span>
+                    <button id="theme-toggle" class="theme-toggle" title="Switch Mode">☀️</button>
+                    <button class="btn btn-secondary btn-sm" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Filter -->
+            <div class="flex gap-2 mb-3">
+                <button class="btn btn-secondary" onclick="filterByRisk('all')">All Patients</button>
+                <button class="btn btn-danger" onclick="filterByRisk('high')">High Risk</button>
+                <button class="btn btn-warning" onclick="filterByRisk('medium')">Medium Risk</button>
+                <button class="btn btn-success" onclick="filterByRisk('low')">Low Risk</button>
+            </div>
+
+            <!-- Patient List -->
+            <div id="patient-list">
+                <div class="flex-center" style="padding: 2rem;">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

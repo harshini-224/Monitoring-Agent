@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CarePulse</title>
+    <link rel="stylesheet" href="../assets/css/carepulse.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-title">
+                <span class="logo">⚕️</span>
+                CarePulse Admin
+            </div>
+            <div class="header-actions">
+                <span id="user-name" style="color: var(--text-secondary); margin-right: 1rem;"></span>
+                <button id="theme-toggle" class="theme-toggle">☀️</button>
+                <button class="btn btn-secondary btn-sm" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Stats Grid -->
+            <div id="stats-grid" class="grid grid-4 mb-3">
+                <!-- Stats will be loaded here -->
+            </div>
+
+            <!-- Main Grid -->
+            <div class="grid grid-2">
+                <!-- Pending Registrations -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Pending Access Requests</h3>
+                        <p class="card-subtitle">Review and approve user registrations</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="pending-list">
+                            <div class="flex-center" style="padding: 2rem;">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create User -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Create New User</h3>
+                        <p class="card-subtitle">Directly create user bypassing approval</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="create-user-form">
+                            <div class="form-group">
+                                <label class="form-label required" for="new-name">Name</label>
+                                <input type="text" id="new-name" class="form-input" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label required" for="new-email">Email</label>
+                                <input type="email" id="new-email" class="form-input" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label required" for="new-password">Password</label>
+                                <input type="password" id="new-password" class="form-input" minlength="8" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label required" for="new-role">Role</label>
+                                <select id="new-role" class="form-select" required>
+                                    <option value="">Select role...</option>
+                                    <option value="staff">Staff</option>
+                                    <option value="nurse">Nurse</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="new-department">Department</label>
+                                <input type="text" id="new-department" class="form-input" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                Create User
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Users -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3 class="card-title">Active Users</h3>
+                    <p class="card-subtitle">All registered and approved users</p>
+                </div>
+                <div class="card-body">
+                    <div id="users-table">
+                        <div class="flex-center" style="padding: 2rem;">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Metrics -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3 class="card-title">System Monitoring</h3>
+                    <p class="card-subtitle">Real-time system health and performance</p>
+                </div>
+                <div class="card-body">
+                    <div id="system-metrics" class="grid grid-2">
+                        <!-- Metrics will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

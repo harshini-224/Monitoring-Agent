@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  background: #f0f8ff;
+  overflow-x: hidden;
+}
+
+/* --- SPLASH SCREEN --- */
+#splash {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,#3a7bd5,#00d2ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+  color: white;
+  font-size: 48px;
+  font-weight: 700;
+  animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* --- MAIN CONTENT --- */
+.hidden { display: none; }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: #ffffff;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-radius: 0 0 20px 20px;
+}
+
+.navbar .logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #3a7bd5;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.navbar .nav-links li a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #3a7bd5;
+  transition: all 0.3s ease;
+}
+
+.navbar .nav-links li a:hover {
+  color: #00d2ff;
+  transform: scale(1.1);
+}
+
+/* HERO SECTION */
+.hero {
+  text-align: center;
+  margin: 60px 0;
+}
+
+.hero h1 {
+  font-size: 48px;
+  color: #3a7bd5;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #555;
+}
+
+/* TRACK CARDS */
+.tracks {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.track-card {
+  width: 240px;
+  height: 180px;
+  background: linear-gradient(145deg,#ffffff,#e6f0ff);
+  border-radius: 26px;
+  box-shadow: 10px 10px 25px rgba(0,0,0,0.08), -10px -10px 25px rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 25px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.track-card:hover {
+  transform: translateY(-12px) rotateX(5deg) rotateY(5deg);
+  box-shadow: 10px 20px 35px rgba(0,0,0,0.12), -10px -10px 35px rgba(255,255,255,0.7);
+}
+
+.track-card .emoji {
+  font-size: 48px;
+}
+
+.track-card h2 {
+  margin: 12px 0 8px;
+}
+
+.track-card .count {
+  font-weight: 600;
+  color: #333;
+}
+
+/* INDIVIDUAL COLORS */
+.cardio { border-top: 6px solid #ff6b6b; }
+.pulmonary { border-top: 6px solid #4dabf7; }
+.general { border-top: 6px solid #51cf66; }
+
+/* PAGE TRANSITION EFFECT */
+.page {
+  animation: pageFadeIn 0.5s ease;
+}
+
+.page.fade-out {
+  animation: pageFadeOut 0.4s ease forwards;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+.navbar .logo,
+.navbar .nav-links li a {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.navbar .logo:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.navbar .nav-links li a:hover {
+  transform: translateY(-2px);
+}
+/* Anchor navbar for absolute positioning */
+.navbar {
+  position: relative;
+}
+
+/* Profile stays top-right without affecting layout */
+.profile-float {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Profile Image */
+.profile-pic {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #00d2ff;
+
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.12),
+              -4px -4px 12px rgba(255,255,255,0.9);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 18px rgba(0,0,0,0.18);
+}
+
+/* Dropdown */
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  width: 200px;
+
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 20px;
+
+  box-shadow: 10px 10px 30px rgba(0,0,0,0.15),
+              -6px -6px 20px rgba(255,255,255,0.8);
+
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+
+  transition: all 0.25s ease;
+  z-index: 999;
+}
+
+/* Show dropdown (JS just toggles display OR you can switch to class) */
+.profile-dropdown.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Name */
+.profile-name {
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+
+/* Divider */
+.profile-dropdown hr {
+  border: none;
+  height: 1px;
+  background: #e2e8f0;
+  margin: 10px 0;
+}
+
+/* Menu Links */
+.profile-dropdown a {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  text-decoration: none;
+
+  transition: all 0.25s ease;
+}
+
+/* Hover Effect – same gradient language */
+.profile-dropdown a:hover {
+  background: linear-gradient(135deg,#3a7bd5,#00d2ff);
+  color: white;
+  transform: translateX(4px);
+}
+

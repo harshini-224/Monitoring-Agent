@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CarePulse | Alerts</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          borderRadius: {
+            none: "0",
+            sm: "6px",
+            DEFAULT: "8px",
+            md: "8px",
+            lg: "8px",
+            xl: "8px",
+            "2xl": "8px",
+            "3xl": "10px",
+            full: "9999px"
+          },
+          boxShadow: {
+            sm: "0 1px 2px rgba(16, 24, 40, 0.06)",
+            DEFAULT: "0 1px 3px rgba(16, 24, 40, 0.08)",
+            md: "0 2px 6px rgba(16, 24, 40, 0.08)",
+            none: "none"
+          },
+          extend: {
+            colors: {
+              brand: "#4A7BD0",
+              info: "#5C86D6",
+              success: "#4F8F6B",
+              warning: "#C98A3A",
+              critical: "#C4625A",
+              ink: "#1F2A37",
+              muted: "#6B7280",
+              panel: "#F3F6FA",
+              border: "#D7DEE7",
+              card: "#FFFFFF"
+            },
+            fontFamily: {
+              sans: ["IBM Plex Sans", "ui-sans-serif", "system-ui"]
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="app.css" />
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+<script src="sidebar.js"></script>
+    <script src="alerts.js" defer></script>
+  </head>
+  <body class="bg-panel text-ink h-screen overflow-hidden">
+    <div class="flex h-full overflow-hidden">
+      <aside id="appSidebar" class="w-60 bg-white border-r border-border min-h-screen px-4 py-6"></aside>
+
+      <main class="flex-1 flex flex-col h-full overflow-hidden min-h-0">
+        <header class="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-b border-border">
+          <div class="flex items-center gap-3 text-sm text-muted">
+            <span class="badge badge-live badge-dot">Live</span>
+            <span id="alertCount">0 Alerts</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span id="alertStatus" class="text-sm text-muted">Updated just now</span>
+            <div class="flex items-center gap-2">
+              <span id="userName" class="text-sm">Clinician</span>
+              <span id="userRole" class="text-xs px-2 py-1 rounded-md bg-panel">ROLE</span>
+              <button id="logoutBtn" class="text-sm text-muted hover:text-ink">Logout</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="px-6 py-6 space-y-4 flex-1 overflow-y-auto">
+          <div class="card p-4">
+            <div class="text-sm font-semibold text-ink">Critical</div>
+            <div id="criticalAlerts" class="mt-3 space-y-3"></div>
+          </div>
+          <div class="card p-4">
+            <div class="text-sm font-semibold text-ink">Medium</div>
+            <div id="mediumAlerts" class="mt-3 space-y-3"></div>
+          </div>
+          <div class="card p-4">
+            <div class="text-sm font-semibold text-ink">Info</div>
+            <div id="infoAlerts" class="mt-3 space-y-3"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

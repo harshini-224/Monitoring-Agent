@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CarePulse | Staff Directory</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          borderRadius: {
+            none: "0",
+            sm: "6px",
+            DEFAULT: "8px",
+            md: "8px",
+            lg: "8px",
+            xl: "8px",
+            "2xl": "8px",
+            "3xl": "10px",
+            full: "9999px"
+          },
+          boxShadow: {
+            sm: "0 1px 2px rgba(16, 24, 40, 0.06)",
+            DEFAULT: "0 1px 3px rgba(16, 24, 40, 0.08)",
+            md: "0 2px 6px rgba(16, 24, 40, 0.08)",
+            none: "none"
+          },
+          extend: {
+            colors: {
+              brand: "#4A7BD0",
+              info: "#5C86D6",
+              success: "#4F8F6B",
+              warning: "#C98A3A",
+              critical: "#C4625A",
+              ink: "#1F2A37",
+              muted: "#6B7280",
+              panel: "#F3F6FA",
+              border: "#D7DEE7",
+              card: "#FFFFFF"
+            },
+            fontFamily: {
+              sans: ["IBM Plex Sans", "ui-sans-serif", "system-ui"]
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="app.css" />
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+<script src="sidebar.js"></script>
+    <script src="staff.js" defer></script>
+  </head>
+  <body class="bg-panel text-ink h-screen overflow-hidden">
+    <div class="flex h-full overflow-hidden">
+      <aside id="appSidebar" class="w-60 bg-white border-r border-border min-h-screen px-4 py-6"></aside>
+
+      <main class="flex-1 flex flex-col h-full overflow-hidden min-h-0">
+        <header class="flex items-center justify-between px-6 py-4 bg-white border-b border-border">
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-muted">Staff Directory</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <span id="userName" class="text-sm">Admin</span>
+              <span id="userRole" class="text-xs px-2 py-1 rounded-md bg-panel">ROLE</span>
+              <button id="logoutBtn" class="text-sm text-muted hover:text-ink">Logout</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="px-6 py-6 space-y-6 flex-1 overflow-y-auto min-h-0">
+          <section class="card p-6">
+            <div class="text-xs uppercase tracking-widest text-muted">Staff Directory</div>
+            <div class="text-lg font-medium mt-2">Centralized staff access registry</div>
+            <div class="text-sm text-muted mt-1">Search, validate, and maintain staff accounts and role assignments.</div>
+          </section>
+
+          <section class="card p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm font-medium">Active Staff</div>
+                <div id="staffSummary" class="text-xs text-muted mt-1">Loading staff summary...</div>
+              </div>
+              <button class="btn-secondary text-xs">Export</button>
+            </div>
+            <div id="staffList" class="mt-4 space-y-3">Loading staff...</div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

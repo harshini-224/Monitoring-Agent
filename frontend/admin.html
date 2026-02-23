@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CarePulse | Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <script src="config.js"></script>
+  </head>
+  <body class="clinical-bg">
+    <div class="clinical-app">
+      <aside id="roleSidebar" class="clinical-sidebar"></aside>
+
+      <div class="clinical-main">
+        <header id="roleTopbar" class="clinical-topbar"></header>
+
+        <main class="clinical-content space-y-4">
+          <section id="roleHeader" class="clinical-page-header"></section>
+          <section id="roleKpis" class="kpi-grid"></section>
+
+          <section class="grid grid-cols-1 gap-4 xl:grid-cols-3">
+            <article id="systemPanel" class="panel-card xl:col-span-2"></article>
+            <article id="approvalPanel" class="panel-card"></article>
+          </section>
+
+          <section id="eventsPanel" class="panel-card"></section>
+        </main>
+      </div>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CarePulse | Register</title>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+      tailwind.config = {
+        theme: {
+          borderRadius: {
+            none: "0",
+            sm: "6px",
+            DEFAULT: "8px",
+            md: "8px",
+            lg: "8px",
+            xl: "8px",
+            "2xl": "8px",
+            "3xl": "10px",
+            full: "9999px"
+          },
+          boxShadow: {
+            sm: "0 1px 2px rgba(16, 24, 40, 0.06)",
+            DEFAULT: "0 1px 3px rgba(16, 24, 40, 0.08)",
+            md: "0 2px 6px rgba(16, 24, 40, 0.08)",
+            none: "none"
+          },
+          extend: {
+            colors: {
+              brand: "#4A7BD0",
+              info: "#5C86D6",
+              success: "#4F8F6B",
+              warning: "#C98A3A",
+              critical: "#C4625A",
+              ink: "#1F2A37",
+              muted: "#6B7280",
+              panel: "#F3F6FA",
+              border: "#D7DEE7",
+              card: "#FFFFFF"
+            },
+            fontFamily: {
+              sans: ["IBM Plex Sans", "ui-sans-serif", "system-ui"]
+            }
+          }
+        }
+      }
+</script>
+<link rel="stylesheet" href="app.css" />
+<script src="config.js"></script>
+<script src="auth.js"></script>
+
+    <script src="register.js" defer></script>
+  </head>
+  <body class="bg-panel text-ink min-h-screen">
+    <div class="min-h-screen grid grid-cols-1 lg:grid-cols-[48%_52%]">
+      <section class="hidden lg:flex flex-col justify-between px-12 py-12 text-white bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950">
+        <div class="flex items-center gap-2 text-sm text-white/70">
+          <span class="inline-flex h-7 w-7 items-center justify-center rounded-md bg-white/10">+</span>
+          <span>CarePulse</span>
+        </div>
+        <div>
+          <div class="text-4xl font-semibold tracking-tight">CarePulse</div>
+          <p class="mt-3 text-base text-white/70 max-w-sm">AI-driven post-discharge monitoring with real-time IVR insights and explainable risk prediction.</p>
+          <div class="mt-8 space-y-3 text-sm text-white/80">
+            <div class="flex items-center gap-2"><span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10">*</span>Real-time IVR Monitoring</div>
+            <div class="flex items-center gap-2"><span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10">*</span>Readmission Risk Prediction</div>
+            <div class="flex items-center gap-2"><span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10">*</span>Explainable AI (SHAP) Insights</div>
+          </div>
+        </div>
+        <div class="text-xs text-white/60">
+          HIPAA-aligned • Secure Access<br />
+          © CarePulse
+        </div>
+      </section>
+
+      <section class="flex items-center justify-center px-6 py-10 bg-white">
+        <div class="w-full max-w-md">
+          <div class="lg:hidden mb-8">
+            <div class="text-lg font-medium">CarePulse</div>
+            <div class="text-sm text-muted">Clinical Monitoring & Risk Intelligence</div>
+          </div>
+          <div class="mb-8">
+            <div class="text-2xl font-semibold">Request access to CarePulse</div>
+            <p class="text-sm text-muted mt-2">All accounts are reviewed and activated by an administrator.</p>
+          </div>
+          <form id="registerForm" class="space-y-6">
+            <div class="space-y-3">
+              <div class="text-sm font-medium">Your Information</div>
+              <div>
+                <label class="text-sm text-muted">Full Name</label>
+                <input id="name" required class="mt-1 w-full rounded-lg border border-border px-4 py-2" />
+              </div>
+              <div>
+                <label class="text-sm text-muted">Work Email</label>
+                <input id="email" type="email" required class="mt-1 w-full rounded-lg border border-border px-4 py-2" />
+              </div>
+            </div>
+            <div class="text-xs text-muted border border-border rounded-lg px-3 py-2 bg-panel">
+              Your account will remain inactive until approved by an administrator.
+            </div>
+            <button type="submit" class="w-full rounded-lg bg-ink text-white py-2 font-medium">Submit Request</button>
+            <div class="text-xs text-muted">
+              Already have access? <a href="login.html" class="text-brand">Sign in</a>
+            </div>
+            <p id="registerSuccess" class="text-sm text-success hidden">Request submitted. Your account is pending approval.</p>
+            <p id="registerError" class="text-sm text-critical"></p>
+          </form>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+
+
+

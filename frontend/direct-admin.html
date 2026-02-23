@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Direct Admin Access</title>
+    <script>
+        console.log("Setting admin auth...");
+        sessionStorage.setItem("auth_role", "admin");
+        sessionStorage.setItem("auth_name", "Test Admin");
+        console.log("Auth set, redirecting...");
+        setTimeout(() => {
+            console.log("Navigating now...");
+            window.location.replace("admin-dashboard.html");
+        }, 100);
+    </script>
+</head>
+
+<body>
+    <h1>Setting up admin access...</h1>
+    <p>If you're not redirected, <a href="admin-dashboard.html">click here</a></p>
+</body>
+
+</html>
